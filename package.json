@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cfenv": "^1.0.4",
+    "cloudant": "^1.7.1",
+    "express": "2.5.10",
+    "kafkaesque": "^1.0.1",
+    "socket.io": "^1.7.3"
+  }
+}
