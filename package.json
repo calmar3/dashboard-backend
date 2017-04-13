@@ -5,6 +5,7 @@
     "cloudant": "^1.7.1",
     "express": "2.5.10",
     "kafkaesque": "^1.0.1",
+    "request": "^2.81.0",
     "socket.io": "^1.7.3"
   }
 }

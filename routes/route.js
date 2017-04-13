@@ -7,4 +7,7 @@ module.exports = function (app) {
 
     app.get('/api/lamps',lampCtrl.getAllLamps);
 
+    app.delete('/api/lamp/:id',lampCtrl.deleteLamp);
+
+    app.post('/api/lamp',lampCtrl.insertLamp);
 };
