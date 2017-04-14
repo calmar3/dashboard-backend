@@ -42,8 +42,9 @@ app.use(function (req, res, next) {
 
 
 
-//kafkaCtrl.initKafka();
+kafkaCtrl.initKafka();
 cloudantCtrl.initDBConnection();
+
 
 //create lamps list
 /*var lampCtrl = require('./controller/lampCtrl');
