@@ -278,7 +278,13 @@ function createLampsFn() {
             lamp.model += numbers.charAt(Math.floor(Math.random() * numbers.length));
             lamp.model += numbers.charAt(Math.floor(Math.random() * numbers.length));
             lamp.address = key;
-            lamp.lastSubstitutionDate = dates[Math.floor(Math.random()*dates.length)];
+            var str1 = dates[Math.floor(Math.random()*dates.length)];
+            var dt1   = parseInt(str1.substring(0,2));
+            var mon1  = parseInt(str1.substring(3,5));
+            var yr1   = parseInt(str1.substring(6,10));
+            var date1 = new Date(yr1, mon1-1, dt1);
+            var d = date1.getTime();
+            lamp.lastSubstitutionDate = d;
             if (streets[key].length === 0){
                 lamp.latitude = "0";
                 lamp.longitude = "0";
@@ -292,6 +298,9 @@ function createLampsFn() {
             lamp.lighIntensity = 0.0;
             lamp.timestamp = 0;
             lamp.city = "Rome";
+            lamp.cellId = [0,0];
+            lamp.residualLifetime = 0;
+
             allLamps.lamps.push(lamp);
             id++;
         }
