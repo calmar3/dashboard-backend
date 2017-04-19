@@ -13,7 +13,6 @@ function initKafkaFn() {
 // these can be split evenly between members of the group.
     var topics = [ 'rank','warning_hour'
         ,'warning_day'
-        ,'warning_hour'
         ,'warning_week'
         ,'hour_lamp_cons'
         ,'day_lamp_cons'
@@ -23,7 +22,9 @@ function initKafkaFn() {
         ,'week_street_cons'
         ,'hour_city_cons'
         ,'day_city_cons'
-        ,'week_city_cons'];
+        ,'week_city_cons'
+        ,'warning_state'
+        ,'median'];
     var kafkaTopics = [];
     for (var i = 0 ; i < topics.length ; i++){
         var topic = {};
@@ -44,8 +45,11 @@ function initKafkaFn() {
         );
 
     consumer.on('message', function (message) {
-        console.log(message);
+        console.log("topic : " + message.topic);
+        console.log("topic content: " + message.value);
         socketCtrl.emitOnTopic(message.topic,message.value);
+
+
     });
 
     consumer.on('error',function (error) {

@@ -14,7 +14,7 @@ exports.insertLamp = insertLampFn;
 exports.deleteLamp = deleteLampFn;
 
 
-var localControllerHost = "http://localhost:6006"
+var localControllerHost = "http://localhost:6006";
 
 /**
  *
@@ -298,7 +298,6 @@ function createLampsFn() {
             lamp.lighIntensity = 0.0;
             lamp.timestamp = 0;
             lamp.city = "Rome";
-            lamp.cellId = [0,0];
             lamp.residualLifetime = 0;
 
             allLamps.lamps.push(lamp);
@@ -306,7 +305,7 @@ function createLampsFn() {
         }
 
     }
-
+/*
     if (!lightSystemDb)
         lightSystemDb = cloudantCtrl.getLightSystemDb();
     lightSystemDb.insert(allLamps,function (err,res) {
@@ -318,4 +317,13 @@ function createLampsFn() {
        }
         
     });
+
+    var fs = require('fs');
+    fs.writeFile("dataset.json", JSON.stringify(allLamps.lamps), function(err) {
+        if(err) {
+            return console.log(err);
+        }
+
+        console.log("The file was saved!");
+    });*/
 }
