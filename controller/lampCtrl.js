@@ -14,7 +14,7 @@ exports.insertLamp = insertLampFn;
 exports.deleteLamp = deleteLampFn;
 
 
-var localControllerHost = "http://localhost:6006";
+var localControllerHost = "http://localhost:6009";
 
 /**
  *
@@ -55,8 +55,7 @@ function insertLampFn(request,response) {
 
     requestModule(options, function (error, res, body) {
         if (error || res.statusCode >= 400){
-            console.log(res);
-            console.log(body);
+            console.log("sensor err");
             response.status(500).send({status:"E",message:"Internal Server Error"});
             return;
         }else{
@@ -64,6 +63,7 @@ function insertLampFn(request,response) {
                 lightSystemDb = cloudantCtrl.getLightSystemDb();
             lightSystemDb.get("lamps",function (err,res) {
                 if (err){
+                    console.log("cloudant err");
                     response.status(404).send({status:"E",message:"Cannot retrieve lamps"});
                     return;
                 }
@@ -71,6 +71,7 @@ function insertLampFn(request,response) {
                     res.lamps.push(request.body);
                     lightSystemDb.insert(res,function (err,res) {
                         if (err){
+                            console.log("cloudant err");
                             response.status(500).send({status:"E",message:"Internal Server Error"});
                             return;
                         }
@@ -90,7 +91,7 @@ function insertLampFn(request,response) {
 
 function deleteLampFn(request,response) {
 
-
+    console.log(request.params.id);
     var options = { method: 'DELETE',
         url: localControllerHost + '/lamp/'+request.params.id,
         headers: {
@@ -101,8 +102,7 @@ function deleteLampFn(request,response) {
     };
     requestModule(options, function (error, res, body) {
        if (error || res.statusCode >= 400){
-            console.log(res);
-            console.log(body);
+           console.log("sensor err");
             response.status(500).send({status:"E",message:"Internal Server Error"});
             return;
         }else{
@@ -110,20 +110,22 @@ function deleteLampFn(request,response) {
                 lightSystemDb = cloudantCtrl.getLightSystemDb();
             lightSystemDb.get("lamps",function (err,res) {
                 if (err){
+                    console.log("cloudant err");
                     response.status(404).send({status:"E",message:"Cannot retrieve lamps"});
                     return;
                 }
                 else{
 
                     for (var i = 0 ; i < res.lamps.length ; i++){
-                        if (res.lamps[i].lampId === parseInt(request.params.id)){
+                        if (res.lamps[i].lampId === request.params.id){
                             res.lamps.splice(i,1);
                             break;
                         }
                     }
-
                     lightSystemDb.insert(res,function (err,res) {
                         if (err){
+                            console.log(err);
+                            console.log("cloudant err");
                             response.status(500).send({status:"E",message:"Internal Server Error"});
                             return;
                         }
@@ -295,18 +297,18 @@ function createLampsFn() {
             }
             lamp.consumption = 0;
             lamp.stateOn = true;
-            lamp.lighIntensity = 0.0;
+            lamp.lightIntensity = 0.0;
             lamp.timestamp = 0;
             lamp.city = "Rome";
-            lamp.residualLifetime = 0;
+            lamp.residualLifeTime = 0;
 
             allLamps.lamps.push(lamp);
             id++;
         }
 
     }
-/*
-    if (!lightSystemDb)
+
+/*    if (!lightSystemDb)
         lightSystemDb = cloudantCtrl.getLightSystemDb();
     lightSystemDb.insert(allLamps,function (err,res) {
        if (err){
@@ -316,9 +318,9 @@ function createLampsFn() {
            console.log("Lamps Inserted");
        }
         
-    });
+    });*/
 
-    var fs = require('fs');
+/*    var fs = require('fs');
     fs.writeFile("dataset.json", JSON.stringify(allLamps.lamps), function(err) {
         if(err) {
             return console.log(err);
