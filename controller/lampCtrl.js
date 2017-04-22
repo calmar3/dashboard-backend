@@ -13,9 +13,69 @@ exports.insertLamp = insertLampFn;
 
 exports.deleteLamp = deleteLampFn;
 
+exports.getData = getDataFn;
+
+exports.storeData = storeDataFn;
+
 
 var localControllerHost = "http://localhost:6009";
 
+
+function getDataFn(request,response) {
+    if (!lightSystemDb)
+        lightSystemDb = cloudantCtrl.getLightSystemDb();
+    lightSystemDb.get("data",function (err,res) {
+        if (err){
+            response.status(404).send({status:"E",message:"Cannot retrieve lamps"});
+            return;
+        }
+        else{
+            response.status(200).send({status:"S",control:res.control,streets:res.streets,lamps:res.lamps,warnings:res.warnings,
+            rank:res.rank,city:res.city});
+            return;
+        }
+
+    });
+}
+
+function storeDataFn(request,response) {
+    if (!lightSystemDb)
+        lightSystemDb = cloudantCtrl.getLightSystemDb();
+    lightSystemDb.get("data",function (err,res) {
+        if (err){
+            response.status(404).send({status:"E",message:"Cannot retrieve lamps"});
+            return;
+        }
+        else{
+            if (request.body.control && request.body.control.length > 0 )
+                res.control = request.body.control;
+            if (request.body.streets && request.body.streets.length > 0 )
+                res.streets = request.body.streets;
+            if (request.body.lamps && request.body.lamps.length > 0 )
+                res.lamps = request.body.lamps;
+            if (request.body.warnings && request.body.warnings.length > 0 )
+                res.warnings = request.body.warning;
+            if (request.body.city && request.body.city.length > 0 )
+                res.city = request.body.city;
+            if (request.body.rank && request.body.rank.length > 0 )
+                res.rank = request.body.rank;
+            lightSystemDb.insert(res,function (err,res) {
+                if (err){
+                    console.log("cloudant err");
+                    response.status(500).send({status:"E",message:"Error updating data"});
+                    return;
+                }
+                else{
+
+                    response.status(200).send({status:"S",message:"data updated"});
+                    return;
+                }
+            });
+
+        }
+
+    });
+}
 /**
  *
  * /api/lamps to get all lamps in system
@@ -79,7 +139,7 @@ function insertLampFn(request,response) {
                             response.status(200).send({status:"S",message:"Inserted Lamp"});
                             return;
                         }
-                    })
+                    });
                 }
 
             });

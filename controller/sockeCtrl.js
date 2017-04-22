@@ -21,12 +21,12 @@ function emitOnTopicFn(topic,message) {
             message: message
         });
     }
-    else{
+/*    else{
         socket = sockets[0];
         socket.broadcast.emit(topic, {
             message: message
         });
-    }
+    }*/
 
 
 }
