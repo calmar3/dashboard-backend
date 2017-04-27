@@ -3,9 +3,9 @@ applications:
 - path: .
   memory: 256M
   instances: 1
-  domain: eu-gb.mybluemix.net
-  name: light-system-be
-  host: light-system-be
+  domain: mybluemix.net
+  name: light-system
+  host: light-system
   disk_quota: 256M
   command: node app.js
   buildpack: sdk-for-nodejs

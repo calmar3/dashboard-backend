@@ -11,7 +11,8 @@ function initKafkaFn() {
 // subscribe to a partitioned topic
 // this topic can have a large number of partitions, but using kafkaesque,
 // these can be split evenly between members of the group.
-    var topics = [ 'rank','warning_hour'
+    var topics = [ 'rank'
+        ,'warning_hour'
         ,'warning_day'
         ,'warning_week'
         ,'hour_lamp_cons'
@@ -38,7 +39,7 @@ function initKafkaFn() {
     }
     var kafka = require('kafka-node'),
         Consumer = kafka.Consumer,
-        client = new kafka.Client('localhost:2181'),
+        client = new kafka.Client('54.221.19.222:2181'),
         offset = new kafka.Offset(client);
 
     offset.fetch(kafkaTopics, function (err, data) {
@@ -55,12 +56,13 @@ function initKafkaFn() {
             consumerTopics,
             {
                 autoCommit: false,
-                fromOffset: true,
+                fromOffset: true
             }
         );
         consumer.on('message', function (message) {
             console.log("topic : " + message.topic);
-            console.log("topic content: " + message.value);;
+            console.log("topic content: " + message.value);
+            socketCtrl.emitOnTopic(message.topic,message.value);
         });
         consumer.on('error',function (error) {
             console.log(error);

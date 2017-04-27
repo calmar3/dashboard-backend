@@ -18,7 +18,7 @@ exports.getData = getDataFn;
 exports.storeData = storeDataFn;
 
 
-var localControllerHost = "http://localhost:6009";
+var localControllerHost = "http://local-controller.mybluemix.net";
 
 
 function getDataFn(request,response) {
