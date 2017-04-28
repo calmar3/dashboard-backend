@@ -8,15 +8,26 @@ Configurare gli host di zookeeper e del local controller nel file controller/uti
 
 Generare il file controller/utils/config.js con le credenziali del proprio CloudantDB nella seguente maniera
 
-var properties = {
-    "username": "",
-    "password": "",
-    "host": "",
-    "port": ,
-    "url": ""
-};
-module.exports = properties;
+config.js
+---------------------------------------------------------------------------------------
 
+var properties = {
+
+    "username": "",
+
+    "password": "",
+
+    "host": "",
+
+    "port": ,
+
+    "url": ""
+
+};
+
+
+module.exports = properties;
+---------------------------------------------------------------------------------------
 
 
 Per avviare l'applicazione eseguire nella directory contenente il file app.js, i comandi :
