@@ -26,4 +26,7 @@ Per avviare l'applicazione eseguire nella directory contenente il file app.js, i
 - node app.js
 
 
-Collegarsi tramite browser su localhost al numero di porta scritto all'avvio dal server per poter accedere alla dashboard
+Generare la versione "dist" dell'applicazione dashboard (https://github.com/calmar3/dashboard)
+e copiarne il contenuto in una directory chiamata "public" nella directory dell'applicazione dashboard-backend
+
+Collegarsi tramite browser all'indirizzo stampato all'avvio del server per visualizzare la dashboard 
