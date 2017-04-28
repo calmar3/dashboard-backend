@@ -10,13 +10,14 @@ Installare `npm` e `nodejs`
 Configurare gli host di zookeeper e del local controller nel file controller/utils/host.js
 
 
+Generare il file `controller/utils/config.js` con le credenziali del proprio CloudantDB nella seguente maniera
 
-Generare il file controller/utils/config.js con le credenziali del proprio CloudantDB nella seguente maniera
+`config.js`
 
-config.js
 ---------------------------------------------------------------------------------------
 
 var properties = {
+
     "username": "",
 
     "password": "",
@@ -26,6 +27,7 @@ var properties = {
     "port": ,
 
     "url": ""
+
 };
 
 module.exports = properties;
