@@ -1,5 +1,6 @@
 var cloudantCtrl = require('../controller/cloudantCtrl');
 
+var host = require('../controller/utils/host');
 
 var requestModule = require('request');
 
@@ -18,7 +19,7 @@ exports.getData = getDataFn;
 exports.storeData = storeDataFn;
 
 
-var localControllerHost = "http://local-controller.mybluemix.net";
+var localControllerHost = host.localController;
 
 
 function getDataFn(request,response) {

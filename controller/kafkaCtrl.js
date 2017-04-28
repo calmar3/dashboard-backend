@@ -1,5 +1,5 @@
 
-
+var host = require('../controller/utils/host');
 
 var socketCtrl = require('../controller/sockeCtrl');
 
@@ -39,7 +39,7 @@ function initKafkaFn() {
     }
     var kafka = require('kafka-node'),
         Consumer = kafka.Consumer,
-        client = new kafka.Client('54.221.19.222:2181'),
+        client = new kafka.Client(host.zookeeperHost),
         offset = new kafka.Offset(client);
 
     offset.fetch(kafkaTopics, function (err, data) {
