@@ -1,6 +1,11 @@
 
+# Installazione
 
-Installare npm e nodejs
+
+Installare `npm` e `nodejs`
+
+
+## Configurazione
 
 Configurare gli host di zookeeper e del local controller nel file controller/utils/host.js
 
@@ -12,7 +17,6 @@ config.js
 ---------------------------------------------------------------------------------------
 
 var properties = {
-
     "username": "",
 
     "password": "",
@@ -22,7 +26,6 @@ var properties = {
     "port": ,
 
     "url": ""
-
 };
 
 module.exports = properties;
@@ -30,12 +33,13 @@ module.exports = properties;
 
 ---------------------------------------------------------------------------------------
 
+## Avvio
 
 Per avviare l'applicazione eseguire nella directory contenente il file app.js, i comandi :
 
-- npm install 
+- `npm install`
 
-- node app.js
+- `node app.js`
 
 
 Generare la versione "dist" dell'applicazione dashboard (https://github.com/calmar3/dashboard)
