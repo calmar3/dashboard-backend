@@ -55,7 +55,7 @@ function storeDataFn(request,response) {
             if (request.body.lamps && request.body.lamps.length > 0 )
                 res.lamps = request.body.lamps;
             if (request.body.warnings && request.body.warnings.length > 0 )
-                res.warnings = request.body.warning;
+                res.warnings = request.body.warnings;
             if (request.body.city && request.body.city.length > 0 )
                 res.city = request.body.city;
             if (request.body.rank && request.body.rank.length > 0 )
