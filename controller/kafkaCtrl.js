@@ -5,12 +5,13 @@ var socketCtrl = require('../controller/sockeCtrl');
 
 exports.initKafka = initKafkaFn;
 
-
+/**
+ * subscribe to KAFKA topics from latest offset
+ * on message call socketCtrl to emit messages to clients by socket
+ */
 function initKafkaFn() {
 
-// subscribe to a partitioned topic
-// this topic can have a large number of partitions, but using kafkaesque,
-// these can be split evenly between members of the group.
+
     var topics = [ 'rank'
         ,'warning_hour'
         ,'warning_day'

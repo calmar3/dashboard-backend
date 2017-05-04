@@ -22,12 +22,18 @@ exports.storeData = storeDataFn;
 var localControllerHost = host.localController;
 
 
+/**
+ * Get data object from database, with all data to show in dashboard
+ * Send 404 if cloudant response with error, 200 otherwise
+ * @param request - HTTP request
+ * @param response - HTTP response
+ */
 function getDataFn(request,response) {
     if (!lightSystemDb)
         lightSystemDb = cloudantCtrl.getLightSystemDb();
     lightSystemDb.get("data",function (err,res) {
         if (err){
-            response.status(404).send({status:"E",message:"Cannot retrieve lamps"});
+            response.status(404).send({status:"E",message:"Cannot retrieve data"});
             return;
         }
         else{
@@ -39,6 +45,12 @@ function getDataFn(request,response) {
     });
 }
 
+/**
+ * Update data object ind database, with all data to show in dashboard
+ * Send 500 if cloudant response with error, 200 otherwise
+ * @param request - HTTP request
+ * @param response - HTTP response
+ */
 function storeDataFn(request,response) {
     if (!lightSystemDb)
         lightSystemDb = cloudantCtrl.getLightSystemDb();
@@ -97,10 +109,13 @@ function getAllLampsFn(request,response) {
         }
 
     });
-}/**
- *
- * /api/lamp to insert new lamp;
- *
+}
+
+/**
+ * Call Local-Controller to insert Lamp.
+ * If it response with no error, insert lamp from lamps in Cloudant
+ * @param request - HTTP request
+ * @param response - HTTP response
  */
 function insertLampFn(request,response) {
 
@@ -149,7 +164,12 @@ function insertLampFn(request,response) {
 
 }
 
-
+/**
+ * Call Local-Controller to delete Lamp.
+ * If it response with no error, delete lamp from lamps in Cloudant
+ * @param request - HTTP request
+ * @param response - HTTP response
+ */
 function deleteLampFn(request,response) {
 
     console.log(request.params.id);
@@ -204,7 +224,7 @@ function deleteLampFn(request,response) {
 }
 
 /**
- * used to create lamps when needed
+ * Function to create DATASET
  */
 function createLampsFn() {
     var allLamps = {
@@ -369,24 +389,33 @@ function createLampsFn() {
 
     }
 
-/*    if (!lightSystemDb)
-        lightSystemDb = cloudantCtrl.getLightSystemDb();
-    lightSystemDb.insert(allLamps,function (err,res) {
-       if (err){
-           console.log(err);
-       }
-       else{
-           console.log("Lamps Inserted");
-       }
-        
-    });*/
+    /**
+     * Insert object lamp in cloudantDb
+     */
 
-/*    var fs = require('fs');
-    fs.writeFile("dataset.json", JSON.stringify(allLamps.lamps), function(err) {
-        if(err) {
-            return console.log(err);
-        }
 
-        console.log("The file was saved!");
-    });*/
+    //     if (!lightSystemDb)
+    //     lightSystemDb = cloudantCtrl.getLightSystemDb();
+    // lightSystemDb.insert(allLamps,function (err,res) {
+    //    if (err){
+    //        console.log(err);
+    //    }
+    //    else{
+    //        console.log("Lamps Inserted");
+    //    }
+    //
+    // });
+
+    /**
+     * write object lamps on file
+     */
+
+    // var fs = require('fs');
+    // fs.writeFile("dataset.json", JSON.stringify(allLamps.lamps), function(err) {
+    //     if(err) {
+    //         return console.log(err);
+    //     }
+    //
+    //     console.log("The file was saved!");
+    // });
 }

@@ -12,6 +12,7 @@ var lightSystemDb = null;
 
 /**
  * Get Cloudant credentials from vcapServices
+ * or from config.js file and connect to the instance of the service
  */
 function initDBConnectionFn() {
     var dbCredentials = {

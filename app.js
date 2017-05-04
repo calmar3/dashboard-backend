@@ -1,4 +1,6 @@
-
+/**
+ * Cloud Foundry Environment
+ */
 var cfenv = require('cfenv');
 var bodyParser = require('body-parser');
 
@@ -8,11 +10,19 @@ var socketCtrl = require('./controller/sockeCtrl');
 var kafkaCtrl = require('./controller/kafkaCtrl');
 var cloudantCtrl = require('./controller/cloudantCtrl');
 
-// create a new express server
+/**
+ * new express server
+ */
 var app = module.exports = express.createServer();
 
+/**
+ * parse JSON body
+ */
 app.use(bodyParser.json());
 
+/**
+ * socket io to push notifications to clients
+ */
 var io = require('socket.io').listen(app);
 
 
@@ -41,23 +51,41 @@ app.use(function (req, res, next) {
 });
 
 
-
+/**
+ * Init Kafka consumer
+ */
 kafkaCtrl.initKafka();
+
+/**
+ * Init Cloudant Connection
+ */
 cloudantCtrl.initDBConnection();
 
 
-//create lamps list
+/**
+ * Function to create Dataset on db or on file
+ * MUST BE COMMENTED IN STANDARD USE
+ */
 /*var lampCtrl = require('./controller/lampCtrl');
 lampCtrl.createLamps();*/
 
 var appEnv = cfenv.getAppEnv();
 
-
+/**
+ * open new connection to client
+ */
 io.sockets.on('connection', function (socket) {
     socketCtrl.setSocket(socket);
 });
 
+/**
+ * serve content i public directory
+ */
 app.use(express.static(__dirname + '/public'));
+
+/**
+ * route for REST APIS
+ */
 require('./routes/route')(app);
 // start server on the specified port and binding host
 app.listen(appEnv.port, '0.0.0.0', function() {

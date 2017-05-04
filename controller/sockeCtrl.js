@@ -6,6 +6,10 @@ var sockets = [];
 
 var socket = null;
 
+/**
+ * set socket of controller
+ * @param newSocket
+ */
 function setSocketFn(newSocket) {
     if (!socket)
         socket = newSocket;
@@ -13,7 +17,11 @@ function setSocketFn(newSocket) {
         sockets.push(newSocket);
 }
 
-
+/**
+ * broadcast messages received from KakfCtrl to all clients on the right topic
+ * @param topic
+ * @param message
+ */
 function emitOnTopicFn(topic,message) {
 
     if (socket){
@@ -21,12 +29,4 @@ function emitOnTopicFn(topic,message) {
             message: message
         });
     }
-/*    else{
-        socket = sockets[0];
-        socket.broadcast.emit(topic, {
-            message: message
-        });
-    }*/
-
-
 }
