@@ -196,9 +196,8 @@ function deleteLampFn(request,response) {
                     return;
                 }
                 else{
-
                     for (var i = 0 ; i < res.lamps.length ; i++){
-                        if (res.lamps[i].lampId === request.params.id){
+                        if (parseInt(res.lamps[i].lampId) === parseInt(request.params.id)){
                             res.lamps.splice(i,1);
                             break;
                         }
